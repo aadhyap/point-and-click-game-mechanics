@@ -1,0 +1,25 @@
+using UnityEngine;
+
+public class ClickManager : MonoBehaviour
+{
+    GameManager gameManager;
+    public void ClickReaction(ItemData item)
+    {
+        TryGettingItem(item);
+    }
+
+    private void TryGettingItem(ItemData item)
+    {
+        bool canGetItem = item.requiredItemID == -1 || gameManager.selectedItemID == item.requiredItemID;
+        if (canGetItem)
+       {
+        GameManager.collectedItems.Add(item);
+        foreach (GameObject obj in item.objectsToRemove)
+           {
+               Destroy(obj);
+           }
+           gameManager.UpdateEquipmentCanvas();
+       }
+    }
+
+}
