@@ -3,6 +3,10 @@ using UnityEngine;
 public class ClickManager : MonoBehaviour
 {
     GameManager gameManager;
+    private void Start()
+    {
+        gameManager = FindFirstObjectByType<GameManager>();
+    }
     public void ClickReaction(ItemData item)
     {
         TryGettingItem(item);

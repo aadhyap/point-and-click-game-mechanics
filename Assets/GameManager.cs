@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     {
 
         Color c = Color.white;
-        c.a = 0;
+        c.a = 1;
         // change alpha of prev slot of new slot to 0
         equipmentSlots[selectedCanvasSlotID].color = c;
         
