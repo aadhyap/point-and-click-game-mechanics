@@ -102,8 +102,8 @@ public class GameManager : MonoBehaviour
         case -4:
             StartCoroutine(ChangeScene(3, 0));
             break;
-        case -3:
-            StartCoroutine(ChangeScene(2, 0));
+        case -2:
+            StartCoroutine(ChangeScene(1, 0));
             break;
         
        }
