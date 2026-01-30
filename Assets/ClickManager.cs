@@ -14,12 +14,14 @@ public class ClickManager : MonoBehaviour
 
     private void TryGettingItem(ItemData item)
     {
-        bool canGetItem = item.requiredItemID == -1 || gameManager.selectedItemID == item.requiredItemID;
+        bool canGetItem = item.requiredItemID == -1 ||  gameManager.selectedItemID == item.requiredItemID;
         if (canGetItem)
        {
         GameManager.collectedItems.Add(item);
         foreach (GameObject obj in item.objectsToRemove)
            {
+            //print
+            Debug.Log("Destroying object: " + obj.name);
                Destroy(obj);
            }
            gameManager.UpdateEquipmentCanvas();
