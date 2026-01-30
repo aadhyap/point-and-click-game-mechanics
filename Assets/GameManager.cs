@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     public Color selectedItemColor;
     public int selectedCanvasSlotID=0;
     public int selectedItemID = -1;
+    public Image blockingImage;
+    public GameObject[] localScenes;
+    int activeLocalScene = 2;
 
 
     public void SelectItem(int equipmentCanvasID)
@@ -97,10 +100,10 @@ public class GameManager : MonoBehaviour
        switch (item.itemID)
        {
         case -4:
-            StartCoroutine(ChangeScene(4, 0));
-            break;
-        case -2:
             StartCoroutine(ChangeScene(3, 0));
+            break;
+        case -3:
+            StartCoroutine(ChangeScene(2, 0));
             break;
         
        }
@@ -109,6 +112,29 @@ public class GameManager : MonoBehaviour
     public IEnumerator ChangeScene(int scenenumber, float delay)
     {
         Debug.Log("Changing scene");
+        Color c = blockingImage.color;
+        blockingImage.enabled = true;
+        while(blockingImage.color.a < 1)
+        {
+            c.a += Time.deltaTime;
+            blockingImage.color = c;
+        }
+        //hide the old one 
+        localScenes[activeLocalScene].SetActive(false);
+        //show the new one
+        localScenes[scenenumber].SetActive(true);
+        //save which one is currently used 
+        activeLocalScene = scenenumber;
+        //show the new screen an enable clicking
+        
+        while(blockingImage.color.a > 0)
+        {
+            c.a -= Time.deltaTime;
+            blockingImage.color = c;
+        }
+        blockingImage.enabled = false;
+
+
         yield return null;
     }
 
