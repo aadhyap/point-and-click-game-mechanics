@@ -99,15 +99,23 @@ public class GameManager : MonoBehaviour
     {
        switch (item.itemID)
        {
-        case -4:
-            StartCoroutine(ChangeScene(3, 0));
+        case -4: // right arrow
+        {
+            int next = (activeLocalScene + 1) % localScenes.Length;
+            StartCoroutine(ChangeScene(next, 0f));
             break;
-        case -2:
-            StartCoroutine(ChangeScene(1, 0));
+        }
+        case -2: // left arrow
+        {
+            int prev = (activeLocalScene - 1 + localScenes.Length) % localScenes.Length;
+            StartCoroutine(ChangeScene(prev, 0f));
             break;
+        }
         
        }
     }
+
+    
 
     public IEnumerator ChangeScene(int scenenumber, float delay)
     {
@@ -137,6 +145,7 @@ public class GameManager : MonoBehaviour
 
         yield return null;
     }
+
 
 
 }
