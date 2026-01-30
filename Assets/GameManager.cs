@@ -1,6 +1,8 @@
 using UnityEngine.UI;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;  
+
 
 public class GameManager : MonoBehaviour
 {
@@ -72,6 +74,42 @@ public class GameManager : MonoBehaviour
     {
         // Implementation for selecting an item based on equipmentCanvasID
         Debug.Log("Item selected with ID: " + equipmentCanvasID);
+    }
+
+    public void ChangeScene(string sceneName)
+    {
+        switch (sceneName)
+        {
+            case "MainScene":
+                UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
+                break;
+            case "EndingScene":
+                UnityEngine.SceneManagement.SceneManager.LoadScene("EndingScene");
+                break;
+            default:
+                Debug.LogError("Scene " + sceneName + " not found!");
+                break;
+        }
+    }
+
+    public void CheckSpecialConditions(ItemData item)
+    {
+       switch (item.itemID)
+       {
+        case -4:
+            StartCoroutine(ChangeScene(4, 0));
+            break;
+        case -2:
+            StartCoroutine(ChangeScene(3, 0));
+            break;
+        
+       }
+    }
+
+    public IEnumerator ChangeScene(int scenenumber, float delay)
+    {
+        Debug.Log("Changing scene");
+        yield return null;
     }
 
 

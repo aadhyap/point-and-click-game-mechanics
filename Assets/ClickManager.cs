@@ -20,8 +20,6 @@ public class ClickManager : MonoBehaviour
         GameManager.collectedItems.Add(item);
         foreach (GameObject obj in item.objectsToRemove)
            {
-            //print
-            Debug.Log("Destroying object: " + obj.name);
                Destroy(obj);
            }
            gameManager.UpdateEquipmentCanvas();
@@ -30,6 +28,9 @@ public class ClickManager : MonoBehaviour
            obj.SetActive(true);
         }
         
+       }else
+       {
+        gameManager.CheckSpecialConditions(item);
        }
     } 
 
