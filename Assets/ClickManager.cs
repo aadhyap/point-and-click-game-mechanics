@@ -25,7 +25,12 @@ public class ClickManager : MonoBehaviour
                Destroy(obj);
            }
            gameManager.UpdateEquipmentCanvas();
+        foreach (GameObject obj in item.objectsToSetActive)
+        {
+           obj.SetActive(true);
+        }
+        
        }
-    }
+    } 
 
 }

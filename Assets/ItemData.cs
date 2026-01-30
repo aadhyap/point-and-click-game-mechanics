@@ -9,7 +9,10 @@ public class ItemData : MonoBehaviour
 
     [Header("Success")]
     public GameObject[] objectsToRemove;
+    public GameObject[] objectsToSetActive;
     public Sprite itemSlotSprite;
+
+  
     
 
 }
