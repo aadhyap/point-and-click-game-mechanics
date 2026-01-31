@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
         c.a -= Time.deltaTime * fadeSpeed;
         c.a = Mathf.Max(c.a, 0f);
         blockingImage.color = c;
-        yield return null;   // 🔥 REQUIRED
+        yield return null;   
     }
 
     blockingImage.enabled = false;
