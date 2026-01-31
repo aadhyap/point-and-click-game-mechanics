@@ -117,34 +117,52 @@ public class GameManager : MonoBehaviour
 
     
 
+    public float fadeSpeed = 0.6f; // smaller = slower
+
     public IEnumerator ChangeScene(int scenenumber, float delay)
+{
+    Debug.Log("Changing scene to " + scenenumber);
+
+    if (delay > 0f)
+        yield return new WaitForSeconds(delay);
+
+    blockingImage.enabled = true;
+    Debug.Log("Blocking image enabled: " + blockingImage.enabled);
+    blockingImage.gameObject.SetActive(true);
+
+
+
+    // IMPORTANT: start transparent
+    Color c = blockingImage.color;
+    c.a = 0f;
+    blockingImage.color = c;
+
+    // Fade to black
+    while (c.a < 1f)
     {
-        Debug.Log("Changing scene");
-        Color c = blockingImage.color;
-        blockingImage.enabled = true;
-        while(blockingImage.color.a < 1)
-        {
-            c.a += Time.deltaTime;
-            blockingImage.color = c;
-        }
-        //hide the old one 
-        localScenes[activeLocalScene].SetActive(false);
-        //show the new one
-        localScenes[scenenumber].SetActive(true);
-        //save which one is currently used 
-        activeLocalScene = scenenumber;
-        //show the new screen an enable clicking
-        
-        while(blockingImage.color.a > 0)
-        {
-            c.a -= Time.deltaTime;
-            blockingImage.color = c;
-        }
-        blockingImage.enabled = false;
-
-
-        yield return null;
+        c.a += Time.deltaTime * fadeSpeed;
+        c.a = Mathf.Min(c.a, 1f);
+        blockingImage.color = c;
+        yield return null;   // 🔥 REQUIRED
     }
+
+    // Swap scenes
+    localScenes[activeLocalScene].SetActive(false);
+    localScenes[scenenumber].SetActive(true);
+    activeLocalScene = scenenumber;
+
+    // Fade back in
+    while (c.a > 0f)
+    {
+        c.a -= Time.deltaTime * fadeSpeed;
+        c.a = Mathf.Max(c.a, 0f);
+        blockingImage.color = c;
+        yield return null;   // 🔥 REQUIRED
+    }
+
+    blockingImage.enabled = false;
+    blockingImage.gameObject.SetActive(false);
+}
 
 
 
